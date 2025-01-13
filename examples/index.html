@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <video id="media" width="400" height="400" controls></video>
+    </div>
+
+    <script type="module">
+      import WebrtcPlayer from "../dist/webrtc-player.es.js";  // npm run build 构建完成后 引入dist包中的js
+
+      let play;
+
+      const createVideo = () => {
+         play = new WebrtcPlayer({
+          url: "webrtc://localhost:8080/webrtc/play/live/test", // webrtc 地址
+          video: document.getElementById("media"), // 获取 video DOM 元素
+          autoplay: true,
+          onPlay: (e) => {
+            console.log("开始播放", e);
+          },
+          onPause: (e) => {
+            console.log("暂停", e);
+          },
+        });
+      };
+
+      // 使用 DOMContentLoaded 事件来确保页面 DOM 已加载完成
+      document.addEventListener("DOMContentLoaded", () => {
+        createVideo();
+      });
+    </script>
+  </body>
+</html>
